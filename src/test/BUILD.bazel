@@ -1,0 +1,16 @@
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_test", "scala_specs2_junit_test")
+
+scala_test(
+    name = "ExampleScalaTest",
+    srcs = ["ExampleScalaTest.scala"],
+    timeout = "short",
+)
+
+scala_specs2_junit_test(
+    name = "ExampleSpecs2Test",
+    srcs = ["ExampleSpecs2Test.scala"],
+    suffixes = [
+        "Test",
+    ],
+    timeout = "short",
+)
