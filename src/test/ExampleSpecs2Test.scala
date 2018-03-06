@@ -1,6 +1,5 @@
 package foo
 
-import org.specs2._
 import org.specs2.mutable.SpecificationWithJUnit
 
 class ExampleSpecs2Test extends SpecificationWithJUnit {
