@@ -1,4 +1,4 @@
-rules_scala_version = "eb5d064cee440321602e1b2c8e625890803dafe0"
+rules_scala_version = "0fd2d99e9f01122c21344752b2b08daaab1b53a6"
 http_archive(
   name = "io_bazel_rules_scala",
   url = "https://github.com/bazelbuild/rules_scala/archive/%s.zip" % rules_scala_version,
