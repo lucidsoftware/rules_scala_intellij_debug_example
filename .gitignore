@@ -1,1 +1,4 @@
 /bazel-*
+/target
+/.idea
+/project/target
