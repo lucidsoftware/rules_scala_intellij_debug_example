@@ -2,15 +2,16 @@ load("@io_bazel_rules_scala//scala:scala.bzl", "scala_test", "scala_specs2_junit
 
 scala_test(
     name = "ExampleScalaTest",
-    srcs = ["ExampleScalaTest.scala"],
     timeout = "short",
+    srcs = ["ExampleScalaTest.scala"],
 )
 
 scala_specs2_junit_test(
     name = "ExampleSpecs2Test",
+    timeout = "short",
     srcs = ["ExampleSpecs2Test.scala"],
+    #    javacopts = ["-g"],
     suffixes = [
         "Test",
     ],
-    timeout = "short",
 )
