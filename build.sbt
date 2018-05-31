@@ -4,6 +4,10 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 
+scalacOptions ++= Seq(
+  "-Xsource:2.11"
+)
+
 scalaVersion := "2.11.11"
 //scalaVersion := "2.12.4"
 

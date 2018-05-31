@@ -1,8 +1,8 @@
 package foo
 
-import org.specs2.mutable.SpecificationWithJUnit
+import org.specs2.mutable.Specification
 
-class ExampleSpecs2Test extends SpecificationWithJUnit {
+class ExampleSpecs2Test extends Specification {
   def bar() = {
     1
   }

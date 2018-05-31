@@ -1,17 +1,32 @@
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_test", "scala_specs2_junit_test")
+load(
+    "@rules_scala_annex//rules:scala.bzl",
+    scala_test = "annex_scala_test",
+)
+
+java_library(
+    name = "Hello",
+    srcs = ["Hello.java"],
+    visibility = ["//visibility:public"],
+)
 
 scala_test(
     name = "ExampleScalaTest",
     timeout = "short",
     srcs = ["ExampleScalaTest.scala"],
+    deps = [
+        "@org_scalatest_scalatest_2_11",
+        "@org_scalactic_scalactic_2_11",
+    ],
 )
 
-scala_specs2_junit_test(
+scala_test(
     name = "ExampleSpecs2Test",
     timeout = "short",
     srcs = ["ExampleSpecs2Test.scala"],
-    #    javacopts = ["-g"],
-    suffixes = [
-        "Test",
+    deps = [
+        ":Hello",
+        "@org_specs2_specs2_core_2_11",
+        "@org_specs2_specs2_matcher_2_11",
+        "@org_specs2_specs2_common_2_11",
     ],
 )

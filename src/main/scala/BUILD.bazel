@@ -1,7 +1,9 @@
-load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
+load(
+    "@rules_scala_annex//rules:scala.bzl",
+    scala_library = "annex_scala_library",
+)
 
-scala_binary(
+scala_library(
     name = "ExampleScalaBinary",
     srcs = ["ExampleScalaBinary.scala"],
-    main_class = "foo.ExampleScalaBinary",
 )
