@@ -9,17 +9,18 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 #    url = "https://github.com/lucidsoftware/rules_scala/archive/%s.zip" % rules_scala_version,
 #)
 
-#http_archive(
-#    name = "rules_scala_annex",
-#    sha256 = "d25ff8152ae7b71695ad9ba6d8488559d19a80014ffa0817f7b890dff926d3cf",
-#    strip_prefix = "rules_scala_annex-5222bcc0a0964a210954dae179ff551d99cd9be5",
-#    url = "https://github.com/lucidsoftware/rules_scala_annex/archive/5222bcc0a0964a210954dae179ff551d99cd9be5.zip",
-#)
-
-local_repository(
+rules_scala_annex_version = "3ff7afae2590d718944439a0bd69c16866709b30"
+http_archive(
     name = "rules_scala_annex",
-    path = "/home/borkaehw/Desktop/code/rules_scala_annex",
+    sha256 = "08cecc61ff813b6e083983fe9e1f0d15dd8439a119366c8b5a2568f6f651bc8e",
+    strip_prefix = "rules_scala_annex-%s" % rules_scala_annex_version,
+    url = "https://github.com/andyscott/rules_scala_annex/archive/%s.zip" % rules_scala_annex_version,
 )
+
+#local_repository(
+#    name = "rules_scala_annex",
+#    path = "/home/borkaehw/Desktop/code/rules_scala_annex",
+#)
 
 load("@rules_scala_annex//rules/scala:workspace.bzl", "annex_scala_repositories", "annex_scala_repository", "annex_scala_register_toolchains")
 
