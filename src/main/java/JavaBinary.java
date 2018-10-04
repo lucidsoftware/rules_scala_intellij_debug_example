@@ -21,6 +21,7 @@ public class JavaBinary {
 			pw1.start();
 			ProxyWorker pw2 = new ProxyWorker(out, "C", 2);
 			pw2.start();
+
 		} catch (IOException x) {
 	      x.printStackTrace();
 	    }

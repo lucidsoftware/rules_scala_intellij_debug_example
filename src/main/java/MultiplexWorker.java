@@ -26,6 +26,7 @@ public class MultiplexWorker extends Thread {
 					eof = true;
 				}
 			}
+			in.close();
 		} catch (IOException x) {
 	    	x.printStackTrace();
 	    }
