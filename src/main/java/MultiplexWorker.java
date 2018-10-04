@@ -21,20 +21,23 @@ public class MultiplexWorker extends Thread {
 
 	@Override
 	public void run() {
-		while (true) {
-			try {
+		try {
+			while (true) {
 				Socket socket = serverSock.accept();
-				ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-				int receivedObject = (int) in.readObject();
-				System.out.println("just read: " + receivedObject);
+				try {
+					ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+					int receivedObject = (int) in.readObject();
+					System.out.println("just read: " + receivedObject);
 
-				ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-				out.writeObject(receivedObject + 100);
-				out.flush();
-
-			} catch (ClassNotFoundException | IOException x) {
-		    	x.printStackTrace();
-		    }
+					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+					out.writeObject(receivedObject + 100);
+					out.flush();
+				} catch (ClassNotFoundException e) {
+			    	e.printStackTrace();
+			    }
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

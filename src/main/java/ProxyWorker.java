@@ -16,30 +16,32 @@ import java.util.Date;
 public class ProxyWorker extends Thread {
 	private final String threadName;
 	private final int id;
-	private static Semaphore sem = new Semaphore(1);
-	private Socket socket;
+	// private static Semaphore sem = new Semaphore(1);
 
-	public ProxyWorker(Socket socket, String threadName, int id) {
+	public ProxyWorker(String threadName, int id) {
 		super(threadName);
 		this.threadName = threadName;
 		this.id = id;
-		this.socket = socket;
 	}
 
 	@Override
 	public void run() {
 		try {
-			sem.acquire();
+			// sem.acquire();
 
-			ObjectOutputStream objectOut = new ObjectOutputStream(socket.getOutputStream());
-			objectOut.writeObject(id);
+			Socket socket = new Socket("localhost", 9999);
+
+			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+			out.writeObject(id);
+			out.flush();
 
 			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			int temp = (int) in.readObject();
-            System.out.println(temp);
+            System.out.println("just returned: " + temp);
+            socket.close();
 
-            sem.release();
-		} catch (InterruptedException | ClassNotFoundException | IOException e) {
+            // sem.release();
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}
