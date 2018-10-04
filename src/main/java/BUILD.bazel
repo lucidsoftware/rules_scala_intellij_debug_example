@@ -1,0 +1,25 @@
+java_binary(
+    name = "JavaBinary",
+    main_class = "foo.JavaBinary",
+    srcs = [
+        "JavaBinary.java",
+    ],
+    deps = [
+    	":ProxyWorker",
+    	":MultiplexWorker",
+    ],
+)
+
+java_library(
+	name = "ProxyWorker",
+	srcs = [
+		"ProxyWorker.java",
+	],
+)
+
+java_library(
+	name = "MultiplexWorker",
+	srcs = [
+		"MultiplexWorker.java",
+	],
+)
