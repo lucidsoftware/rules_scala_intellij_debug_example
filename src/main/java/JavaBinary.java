@@ -1,5 +1,7 @@
 package foo;
 
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.IOException;
@@ -9,18 +11,20 @@ public class JavaBinary {
 		System.out.println("Hello world");
 
 		try {
-			final PipedOutputStream out = new PipedOutputStream();
-	      	final PipedInputStream in = new PipedInputStream(out);
+			// final PipedOutputStream out = new PipedOutputStream();
+	  //     	final PipedInputStream in = new PipedInputStream(out);
+			ServerSocket serverSock = new ServerSocket(9999);
+			Socket socket = new Socket("127.0.0.1", 9999);
 
-			MultiplexWorker mw = new MultiplexWorker(in, "MW");
+			MultiplexWorker mw = new MultiplexWorker(serverSock, "MW");
 			mw.start();
 
-			ProxyWorker pw0 = new ProxyWorker(out, "A", 0);
+			ProxyWorker pw0 = new ProxyWorker(socket, "A", 0);
 			pw0.start();
-			ProxyWorker pw1 = new ProxyWorker(out, "B", 1);
-			pw1.start();
-			ProxyWorker pw2 = new ProxyWorker(out, "C", 2);
-			pw2.start();
+			// ProxyWorker pw1 = new ProxyWorker(socket, "B", 1);
+			// pw1.start();
+			// ProxyWorker pw2 = new ProxyWorker(socket, "C", 2);
+			// pw2.start();
 
 		} catch (IOException x) {
 	      x.printStackTrace();
