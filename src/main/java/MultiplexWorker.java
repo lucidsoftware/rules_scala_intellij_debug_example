@@ -1,43 +1,51 @@
 package foo;
 
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.InputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.util.*;
 
-public class MultiplexWorker extends Thread {
-	private ServerSocket serverSock;
+public class MultiplexWorker {
+	private PipedOutputStream out;
+	private PipedInputStream in;
+	private String name;
+	private static Map<String, MultiplexWorker> instanceMap = new HashMap<>();
 
-	public MultiplexWorker(ServerSocket serverSock, String threadName) {
-		super(threadName);
-		this.serverSock = serverSock;
+	public MultiplexWorker(String name) {
+		try {
+			this.out = new PipedOutputStream();
+			this.in = new PipedInputStream(out);
+		} catch (IOException e) {
+	      e.printStackTrace();
+	    }
+	    this.name = name;
 	}
 
-	@Override
-	public void run() {
-		try {
-			while (true) {
-				Socket socket = serverSock.accept();
-				try {
-					ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-					int receivedObject = (int) in.readObject();
-					System.out.println("just read: " + receivedObject);
+	public String getName() {
+		System.out.println(instanceMap);
+		return name;
+	}
 
-					ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-					out.writeObject(receivedObject + 100);
-					out.flush();
-				} catch (ClassNotFoundException e) {
-			    	e.printStackTrace();
-			    }
-			}
+	public static MultiplexWorker getInstance(String name) {
+        if (!instanceMap.containsKey(name)) {
+            instanceMap.put(name, new MultiplexWorker(name));
+        }
+        return instanceMap.get(name);
+    }
+
+	public void print() {
+		try {
+			System.out.println(in.read());
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	      e.printStackTrace();
+	    }
+	}
+
+	public OutputStream getOutputStream() {
+		return out;
 	}
 }
