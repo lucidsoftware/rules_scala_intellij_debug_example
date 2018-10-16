@@ -1,0 +1,22 @@
+build --experimental_strict_action_env
+test --experimental_strict_action_env
+
+build --strategy=ScalaCompile=worker
+build --strategy=ScalaCheckDeps=worker
+build --strategy=TsickleDev=worker
+build --strategy=TwirlCompile=worker
+test --strategy=ScalaCompile=worker
+test --strategy=ScalaCheckDeps=worker
+test --strategy=TsickleDev=worker
+test --strategy=TwirlCompile=worker
+
+build --worker_extra_flag=ScalaCompile=--wrapper_script_flag=--jvm_flags="-XX:+UseG1GC"
+test --worker_extra_flag=ScalaCompile=--wrapper_script_flag=--jvm_flags="-XX:+UseG1GC"
+
+build --worker_extra_flag=ScalaCompile=--wrapper_script_flag=--jvm_flags="-Xmx1g -Xms10m"
+test --worker_extra_flag=ScalaCompile=--wrapper_script_flag=--jvm_flags="-Xmx1g -Xms10m"
+
+test --test_output=all
+
+run --direct_run
+
