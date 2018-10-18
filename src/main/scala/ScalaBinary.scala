@@ -14,34 +14,40 @@ object ScalaBinary {
     val testOne = new TestClassOne
     testOne.print
 
-    
-
     val testTwo = new TestClassTwo
     testTwo.print
 
-    val rst1 = futureTest("kevin")
-    val rst2 = futureTest("james")
-    val rst3 = futureTest("jared")
+    val testThree = new TestClassThree
+    testThree.print
+
+ //    futureTest("kevin").onComplete {
+	// 	case Success(n) => {
+	// 		println("yes")
+	// 		println(n)
+	// 	}
+	// 	case Failure(ex) => {
+	// 		println("no")
+	// 	}
+	// }
+	// Thread.sleep(1100)
+
+	// plus(1)
+  }
+
+  @annotation.tailrec
+  def plus(num: Int): Int = plus {
+  	println(num)
+  	num + 1
   }
 
   def returnMultiple(name: String): (String, Int, String) = {
   	(name, 428, "umich")
   }
 
-  def futureTest(name: String) {
-  	val f = Future {
-    	val (testName, testNum, testSchool) = returnMultiple(name)
-    	(testName, testNum, testSchool)
-    }
-
-  	f.onComplete {
-    	case Success(n) => {
-    		println("yes")
-    		println(n._1)
-    	}
-    	case Failure(ex) => {
-    		println("no")
-    	}
-    }
+  def futureTest(name: String): Future[String] = Future {
+	val (testName, testNum, testSchool) = returnMultiple(name)
+	// (testName, testNum, testSchool)
+	println("in the future")
+	name + " great"
   }
 }

@@ -11,6 +11,7 @@ scala_binary(
     deps = [
     	":TestClassOne",
     	":TestClassTwo",
+        ":TestClassThree",
     ],
 )
 
@@ -22,4 +23,9 @@ scala_library(
 scala_library(
 	name = "TestClassTwo",
 	srcs = ["TestClassTwo.scala"],
+)
+
+scala_library(
+    name = "TestClassThree",
+    srcs = ["TestClassThree.scala"],
 )
